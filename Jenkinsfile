@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DOTNET_CLI_TELEMETRY_OPTOUT = '1'
-        BUILD_CONFIGURATION = 'Release'
-    }
-
     stages {
         stage('Restore') {
 
