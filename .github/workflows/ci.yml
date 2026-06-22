@@ -2,28 +2,26 @@ name: Build and test The app
 
 on:
   push:
-    branches: [ "develop", "feature" ]
+    branches: [ "develop", "feature/*" ] # Updated to include feature sub-branches
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: checkout repo
+    - name: Checkout repo
       uses: actions/checkout@v4
       
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
-      
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: '6.0.x' # Best practice: wrap versions in quotes
         
     - name: Restore dependencies
       run: dotnet restore
       
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --configuration Release --no-restore
       
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --configuration Release --no-build --verbosity normal
